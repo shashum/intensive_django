@@ -1,0 +1,7 @@
+<h1>hi</h1>
+
+{% for post in posts %}
+    <a href="{% url 'detail_post2' post.id %}">{{post.title}}</a>
+    <br>
+{% endfor %}
+<a href="{% url 'create_post' %}">post 만들기</a>

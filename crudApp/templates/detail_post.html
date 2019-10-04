@@ -1,0 +1,6 @@
+{{post.title}}
+<br>
+{{post.text}}
+
+<a href="{% url 'edit_post' post.id %}">수정하기</a>
+<a href="{% url 'delete_post' post.id %}">삭제하기</a>
