@@ -6,7 +6,15 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse    
+
+from crudApp.serializer imposer ProductSerializer
+from rest_framework import viewsets
+
+from rest_framework import renderers
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
 
 # Create your views here.
 def home(request):
@@ -15,7 +23,7 @@ def home(request):
     post = Post.objects.all()
     return render(request,'home.html',{'posts':post})
 class Home(ListView):
-    model = Post #기본적으로 [앱이름]/[모델소문자명]_list.html로 렌더링 - crudApp/post_list.html
+    model = Product #기본적으로 [앱이름]/[모델소문자명]_list.html로 렌더링 - crudApp/post_list.html
     template_name = 'home.html' #object_list
     context_object_name = 'posts' #default: object_name
 
@@ -87,6 +95,10 @@ class Detail_post2(DetailView):
     model = Product
     template_name = 'detail_post2.html'
 
+class ProductViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
-
-
+    @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
+    def highlight(self, request, *args, **kwargs)
+        return HttpResponse("얍?")
